@@ -34,3 +34,21 @@
     </script>
 </body>
 </html>
+<button onclick="switchLanguage()">Switch Direction</button>
+
+<script>
+    function switchLanguage() {
+        const currentLanguage = document.getElementById('language').value;
+        const text = document.getElementById('text').value;
+        const targetLanguage = currentLanguage === 'en' ? 'en' : 'en';
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${currentLanguage}&tl=${targetLanguage}&dt=t&q=${text}`;
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const translatedText = data[0][0][0];
+                document.getElementById('translation').innerText = translatedText;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
